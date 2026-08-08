@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Registered Users</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#f2f2f2;
+}
+
+.container{
+    width:700px;
+    margin:30px auto;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 0 10px gray;
+}
+
+h2{
+    text-align:center;
+    color:#2c3e50;
+}
+
+.user{
+    background:#f9f9f9;
+    border-left:5px solid green;
+    padding:15px;
+    margin-bottom:20px;
+    border-radius:8px;
+}
+
+.user h3{
+    color:green;
+    text-align:center;
+}
+
+.user p{
+    margin:8px 0;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:red;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:darkred;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Registered Users</h2>
+
+<div id="details"></div>
+
+<button onclick="clearUsers()">Clear All Details</button>
+
+</div>
+
+<script>
+
+function displayUsers(){
+
+    var users = JSON.parse(localStorage.getItem("users")) || [];
+
+    var output = "";
+
+    if(users.length==0){
+
+        output="<h3 style='text-align:center;color:red;'>No Registered Users</h3>";
+
+    }
+    else{
+
+        for(var i=0;i<users.length;i++){
+
+            output += "<div class='user'>";
+
+            output += "<h3>Person " + (i+1) + "</h3>";
+
+            output += "<p><b>First Name :</b> " + users[i].fname + "</p>";
+
+            output += "<p><b>Last Name :</b> " + users[i].lname + "</p>";
+
+            output += "<p><b>User Name :</b> " + users[i].username + "</p>";
+
+            output += "<p><b>Password :</b> " + users[i].password + "</p>";
+
+            output += "<p><b>Date of Birth :</b> " + users[i].dob + "</p>";
+
+            output += "<p><b>Mobile Number :</b> " + users[i].mobile + "</p>";
+
+            output += "<p><b>Address :</b> " + users[i].address + "</p>";
+
+            output += "<p><b>Pin Code :</b> " + users[i].pincode + "</p>";
+
+            output += "<p><b>Gender :</b> " + users[i].gender + "</p>";
+
+            output += "</div>";
+
+        }
+
+    }
+
+    document.getElementById("details").innerHTML = output;
+
+}
+
+function clearUsers(){
+
+    if(confirm("Are you sure you want to delete all registered users?")){
+
+        localStorage.removeItem("users");
+
+        displayUsers();
+
+        alert("All user details have been deleted.");
+
+    }
+
+}
+
+window.onload = displayUsers;
+
+</script>
+
+</body>
+</html>
